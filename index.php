@@ -34,8 +34,10 @@ if (!empty($_POST['login']) && !empty($_POST['password'])) {
     <header>
         <?php include $_SERVER['DOCUMENT_ROOT'] . '/templates/header.php'?>
     </header>
-    <?php if (isset($_GET['login']) && $_GET['login'] === 'yes' && !$success):
-        include $_SERVER['DOCUMENT_ROOT'] . '/templates/form.php';?>
+    <?php if (isset($_GET['login']) && $_GET['login'] === 'yes'):
+        if (!$success):
+        include $_SERVER['DOCUMENT_ROOT'] . '/templates/form.php';
+        endif;?>
     <?php else:?>
     <h1>Крутой проект</h1>
     <p>Вы можете насладиться управлением списками</p>
