@@ -9,13 +9,12 @@ $error = false;
 
 //проверяем данные
 
-foreach ($passwords as $key => $value) {
-    if (isset($_POST['login']) && isset($_POST['password'])) {
-        if ($logins[$key] === $_POST['login'] && $passwords[$key] === $_POST['password']) {
-            $success = true;
-        } else {
-            $error = true;
-        }
+
+if (!empty($_POST['login']) && !empty($_POST['password'])) {
+    if (array_search($_POST['password'], $passwords) === false || array_search($_POST['login'], $logins) === false && array_search($_POST['password'], $passwords) !== array_search($_POST['login'], $logins)) {
+        $error = true;
+    } else {
+        $success = true;
     }
 }
 
@@ -29,30 +28,27 @@ foreach ($passwords as $key => $value) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/styles.css">
-    <title>Test site</title>
+    <title>Project - ведение списков</title>
 </head>
 <body>
     <header>
-        <?php include $_SERVER['DOCUMENT_ROOT'] . '/main/header.php'?>
+        <?php include $_SERVER['DOCUMENT_ROOT'] . '/templates/header.php'?>
     </header>
-    <?php if (isset($_GET['login']) && $_GET['login'] === 'yes') {
-        if (!$success) {
-            include $_SERVER['DOCUMENT_ROOT'] . '/main/form.php';
-        }
-    } else { ?>
+    <?php if (isset($_GET['login']) && $_GET['login'] === 'yes' && !$success):
+        include $_SERVER['DOCUMENT_ROOT'] . '/templates/form.php';?>
+    <?php else:?>
     <h1>Крутой проект</h1>
     <p>Вы можете насладиться управлением списками</p>
     <a type="button" class="btn btn-primary" href="?login=yes">Authorization</a>
-    <?php } ?>
-    <?php if (isset($_POST['login']) && isset($_POST['password'])) {
-        if ($success) {?>
-            <div class="form-text"><?php include $_SERVER['DOCUMENT_ROOT'] . '/include/success.php'?></div>
-        <?php } elseif ($error) {?>
-            <div class="form-text"><?php include $_SERVER['DOCUMENT_ROOT'] . '/include/error.php'?></div>
-        <?php }
-    } ?>
+    <?php endif;?>
+    <?php if ($success):?>
+        <div class="form-text"><?php include $_SERVER['DOCUMENT_ROOT'] . '/include/success.php';?></div>
+    <?php endif;?>
+    <?php if ($error):?>
+        <div class="form-text"><?php include $_SERVER['DOCUMENT_ROOT'] . '/include/error.php';?></div>
+    <?php endif;?>
     <div class="footer">
-        <?php include $_SERVER['DOCUMENT_ROOT'] . '/main/footer.php'?>
+        <?php include $_SERVER['DOCUMENT_ROOT'] . '/templates/footer.php'?>
     </div>
 </body>
 </html>
