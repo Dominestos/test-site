@@ -9,6 +9,23 @@ function cutString($line, $length = 13, $appends = '...')
     return $line;
 }
 
+//возвращает значение пароля с ключом, являющимся значением $_COOKIE['id'];
+function cookieLogin($logArr)       // $logArr === $logins[]
+{
+    return ((isset($logArr[$_COOKIE['id']])) ? $logArr[$_COOKIE['id']] : '');
+}
+
+function authRedirect($url)     //функция, заменяющая ссылки при отсутствии авторизации
+{
+    $main = '/';
+
+    if ($url !== $main) {
+        return (!empty($_SESSION['auth'])) ? $url : '/?login=yes';
+    } else {
+        return (!empty($_SESSION['auth'])) ? '/gallery/' : $url;
+    }
+}
+
 function arraySort(array $array, $key = 'sort', $sort = SORT_ASC): array
 {
     $secondArr = [];
@@ -34,7 +51,7 @@ function showMenu(array $unsortedMenu, $class = 'default', $sortKey = 'sort', $s
             $style = ($_SERVER['REQUEST_URI'] === $value['path']) ? 'text-decoration: underline' : 'text-decoration: none';
             $rtitle = (mb_strlen($value['title']) >= 15) ? cutString($value['title'], 12) : $value['title'];
             
-             $x .= '<li class="nav-item ' . $class . '"><a class="nav-link" href="' . $value['path'] . '" style="' . $style . '">' . $rtitle . '</a></li>';
+             $x .= '<li class="nav-item ' . $class . '"><a class="nav-link" href="' . authRedirect($value['path']) . '" style="' . $style . '">' . $rtitle . '</a></li>';
         }
         return $x;
 }

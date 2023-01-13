@@ -46,13 +46,13 @@ function movedFilesInDir($file)
 
 function fullUploadFiles($files)
 {
-    $uploadError = false;
+    $uploadError = null;
     $uploadFiles = reArray($files);
     if (countCheck($uploadFiles) === false) {
         $uploadError[] = 'Нельзя загружать больше 5 файлов';
     } else {
         foreach ($uploadFiles as $file ) {
-            $uploadError = false;
+            $uploadError = null;
             if (checkfileType($file) === false) {
                 $uploadError[] = 'Неверное расширение файла ' . $file['name'];
             } elseif (checkfileSize($file) === false) {

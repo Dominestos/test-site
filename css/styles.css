@@ -1,7 +1,26 @@
+.myred {
+    height: 100vh;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10%;
+    display: flex;
+    flex-direction: column;
+    width: 20%;
+}
+
+form.myred {
+    margin-top: 6%;
+    width: 25%;
+}
+
 .headermenulink {
     font-size: 16px;
 }
 
 .footermenulink {
     font-size: 12px;
+}
+
+a {
+    text-decoration: none;
 }
