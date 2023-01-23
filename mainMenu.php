@@ -31,4 +31,9 @@ $main_menu = [
         'path' => '/route/contacts/',
         'sort' => 3,
     ],
+    [
+        'title' => 'Мой профиль',
+        'path' => '/profile/',
+        'sort' => 1,
+    ]
 ];

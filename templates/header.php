@@ -3,33 +3,13 @@ $sessionLifetime = 3600 * 24 * 30;
 session_set_cookie_params($sessionLifetime);
 session_start();
 
+
 require_once $_SERVER['DOCUMENT_ROOT'] . '/src/core.php';
-$logins = [];
-$passwords = [];
+
 require_once $_SERVER['DOCUMENT_ROOT'] . '/data/logins.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/data/passwords.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/src/authLogic.php';
 
-$success = false;
-$error = false;
-
-//проверяем данные
-
-if (isset($_COOKIE['id'])) {
-    setcookie('id', $_COOKIE['id'], time() + (3600 * 24 * 30), '/');
-}
-
-
-if (!empty($_POST['login']) && !empty($_POST['password'])) {
-    $loginId = array_search($_POST['login'], $logins);
-    if (array_search($_POST['password'], $passwords) === false || array_search($_POST['login'], $logins) === false && array_search($_POST['password'], $passwords) !== array_search($_POST['login'], $logins)) {
-        $error = true;
-    } else {
-        $loginID = array_search($_POST['login'], $logins);
-        $success = true;
-        $_SESSION['auth'] = true;
-        setcookie('id', $loginID, time() + (60 * 60 * 24 * 30), '/');
-    }
-}
 
 ?>
 <!DOCTYPE html>

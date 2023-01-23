@@ -18,6 +18,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/templates/header.php';
         <div class="p-3 mb-2 bg-body text-body myred">
             <?php include $_SERVER['DOCUMENT_ROOT'] . '/include/success.php';?><br>
             <a href="/gallery/" style="text-decoration: none">Перейти в Галерею</a>
+            <a href="/profile/" style="text-decoration: none">Перейти на страничку профиля</a>
         </div>
     <?php endif;?>
     <?php if ($error):?>

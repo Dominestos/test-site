@@ -1,5 +1,18 @@
 <?php
 
+function getConnect($user = 'root', $password = '123', $dsn = 'mysql:host=localhost;dbname=mydb')
+{
+    static $connection = null;
+
+    if ($connection === null) {
+       
+
+        $connection = new PDO($dsn, $user, $password) or die('не удалось подключиться к базе данных');
+    }
+    
+    return $connection;
+}
+
 function cutString($line, $length = 13, $appends = '...')
 {
     if (mb_strlen($line) > $length) {
@@ -14,6 +27,7 @@ function cookieLogin($logArr)       // $logArr === $logins[]
 {
     return ((isset($logArr[$_COOKIE['id']])) ? $logArr[$_COOKIE['id']] : '');
 }
+
 
 function authRedirect($url)     //функция, заменяющая ссылки при отсутствии авторизации
 {
@@ -63,4 +77,13 @@ function showTitle(array $arrayMenu, $url, $component = PHP_URL_PATH): string
             return $value['title'];
         }
     }
+}
+
+function showGroups(array $array): string
+{
+    $groups = "";
+    foreach ($array as $key => $value) {
+        $groups ="'{$value}' {$groups}";
+    }
+     return $groups;
 }

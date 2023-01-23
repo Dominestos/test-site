@@ -1,3 +1,3 @@
 <?php
 
-$passwords = ['pass', '123qwerty', 'papamama1111'];
+$passwords = ['12345', 'papamama1111', '123qwerty'];
