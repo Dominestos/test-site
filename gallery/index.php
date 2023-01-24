@@ -2,18 +2,10 @@
 include $_SERVER['DOCUMENT_ROOT'] . '/templates/header.php';
 
 $dir = scandir('../upload/');
+$result = '';
 
 if (!empty($_POST)) {
-    foreach ($dir as $key => $file) {
-        $fileDir = $_SERVER['DOCUMENT_ROOT'] . '/upload/' . $file;
-        if (in_array('deleteAll', $_POST)) {
-            if (is_file($fileDir)) {
-                unlink($_SERVER['DOCUMENT_ROOT'] . '/upload/' . $file);
-            }
-        } elseif (in_array($file, $_POST)) {
-            unlink($_SERVER['DOCUMENT_ROOT'] . '/upload/' . $file);
-        }
-    }
+    $result = deleteFiles($dir);
 }
 ?>
 <section>
@@ -54,4 +46,5 @@ if (!empty($_POST)) {
     </div>
 </section>
 </form>
+<p><?=$result ?></p>
 <?php include $_SERVER['DOCUMENT_ROOT'] . '/templates/footer.php';?>

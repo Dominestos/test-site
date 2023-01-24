@@ -35,9 +35,10 @@ function authRedirect($url)     //функция, заменяющая ссыл�
 
     if ($url !== $main) {
         return (!empty($_SESSION['auth'])) ? $url : '/?login=yes';
-    } else {
-        return (!empty($_SESSION['auth'])) ? '/gallery/' : $url;
     }
+    
+    return (!empty($_SESSION['auth'])) ? '/gallery/' : $url;
+    
 }
 
 function arraySort(array $array, $key = 'sort', $sort = SORT_ASC): array
@@ -81,9 +82,26 @@ function showTitle(array $arrayMenu, $url, $component = PHP_URL_PATH): string
 
 function showGroups(array $array): string
 {
-    $groups = "";
     foreach ($array as $key => $value) {
-        $groups ="'{$value}' {$groups}";
+        $value = '"' . $value . '"';
     }
-     return $groups;
+     return implode(", ", $array);
+}
+
+function deleteFiles(array $scannedDir)
+{
+    foreach ($scannedDir as $key => $file) {
+        $fileDir = $_SERVER['DOCUMENT_ROOT'] . '/upload/' . $file;
+        $message = false;
+        if (in_array('deleteAll', $_POST)) {
+            if (is_file($fileDir)) {
+                unlink($fileDir);
+                $message = 'Все файлы успешно удалены';
+            }
+        } elseif (in_array($file, $_POST)) {
+            unlink($fileDir);
+            $message = 'Файлы успешно удалены';
+        }
+    }
+    return $message ?? 'Не удалось удалить файлы';
 }

@@ -7,11 +7,9 @@ require_once __DIR__ . '/functionsForcreate/uploadlogic.php';
 $renewFiles = [];
 
 
-if (isset($_POST['upload'])) {
-    if(!empty($_FILES)) {
+if (isset($_POST['upload']) && !empty($_FILES)) {
         $imagearray = $_FILES['image'];
         $result = fullUploadFiles($imagearray);
-    }
 }
 ?>
 </pre>

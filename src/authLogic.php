@@ -46,10 +46,8 @@ if (isset($_POST['login']) && isset($_POST['password'])) {
         $stmt_groups->bindParam(1, $userID, PDO::PARAM_STR);
         $stmt_groups->execute();
         $_SESSION['auth']['groups'] = [];
-        $i = 0;
         while ($row = $stmt_groups->fetch()) {
-            $_SESSION['auth']['groups'][$i] = $row['name'];
-            $i++;
+            $_SESSION['auth']['groups'][] = $row['name'];
         };
         setcookie('id', $userID, time() + (60 * 60 * 24 * 30), '/');
     } else {
